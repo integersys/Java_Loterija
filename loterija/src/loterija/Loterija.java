@@ -25,15 +25,16 @@ public class Loterija {
 		
 		switch (izvele) {
 		case "Sākt izlozi":
+			winbumb.clear();
 			for(int i = 0; i<3; i++) {
 				for(int j= 0; j<10; j++) {
 				trauks.push(rand.nextInt(10)+0);
 					Collections.shuffle(trauks);
-							winbumb.push(trauks.peek());
 						}
+				winbumb.push(trauks.peek());
 			}
 		
-			JOptionPane.showMessageDialog(null, "Tavi laimīgais skaitlis:  "+winbumb.pop(), "Paziņojums", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Tavi laimīgais skaitlis:  "+winbumb, "Paziņojums", JOptionPane.INFORMATION_MESSAGE);
 			
 			break;
 			
