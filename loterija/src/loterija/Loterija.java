@@ -5,6 +5,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
 import java.util.Stack;
@@ -17,6 +18,9 @@ public class Loterija {
 	static LocalDate currentDate;	
 	static LocalTime currentTime;
 	static String laiks;
+	static long laiksMS;
+	static long tagadLaiksMS;
+	static Date date = new Date();
 	
 	public static void main(String[] args) {
 		String izvele;
@@ -37,8 +41,13 @@ public class Loterija {
 		// Pagaidām nav ieviesta loģika, ka skaitļi nevar atkārtoties.
 		switch (izvele) {
 		case "Sākt izlozi":
-			 if(!winbumb.empty())
+			if(!winbumb.empty()) {
+				 tagadLaiksMS = date.getTime();
+			 if(tagadLaiksMS < laiksMS + 60 * 1000) {
 				 JOptionPane.showMessageDialog(null, "Jāgaida 1 minūte, līdz atkal vari darīt izlozi!");
+				 break;
+			 }
+			}else
 			winbumb.clear();
 			for(int i = 0; i<3; i++) {
 				for(int j= 0; j<10; j++) {
@@ -48,13 +57,14 @@ public class Loterija {
 				winbumb.push(trauks.peek());
 			}
 			
+			
+			
 			currentDate = LocalDate.now();
 			currentTime = LocalTime.now();
-
+			laiksMS = date.getTime();
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss", Locale.US);
 			LocalTime time = LocalTime.now();
 			laiks = formatter.format(time);
-
 			
 			JOptionPane.showMessageDialog(null, "Tavi laimīgais skaitlis:  "+winbumb+"\nApskaties papildus info izmantojot 2. metodi", "Paziņojums", JOptionPane.INFORMATION_MESSAGE);
 			
